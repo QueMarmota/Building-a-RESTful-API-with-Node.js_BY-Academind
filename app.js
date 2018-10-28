@@ -15,6 +15,7 @@ mongoose.connect("mongodb://node-shop:"+
     ,{ useNewUrlParser: true }
     
 );
+mongoose.Promise = global.Promise;
 //morgan 
 app.use(morgan('dev'));
 //BODY PARSER
