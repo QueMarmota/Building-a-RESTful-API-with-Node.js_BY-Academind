@@ -13,6 +13,7 @@
 * `npm install --save mongoose`
 * `npm install --save multer` //alternativa a body parser
 * ` npm install --save bcrypt@1.0.2` //para encriptar las passwords , tuve que usar una version mas antigua por q me salian errores con la actual npm install bcrypt
+* `npm install jsonwebtoken`//Para user las tokens
 * 
 
 

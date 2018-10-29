@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 const multer = require('multer');
+const checkAuth = require('../middleware/check-auth');
 
 const storage = multer.diskStorage({//condiciones de que se va guardar 
     destination: function (req, file, cb) {
@@ -74,7 +75,8 @@ router.get('/', (req, res, next) => {
 });
 //para hacer el post con una imagen en post man hay que boner el body en form-data en key llenamos las columnas de los campos y en value los valores
 //despues de llenar los campos agregamos en  la columna el tipo de dato file y en value seleccionamos el archivo y en headers quitamos el content type de json y le damos send
-router.post('/', upload.single('productImage'), (req, res, next) => {
+//tambien hay q agregar el header AUTHORIZATION, y en el value Bearer y despues el token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRleHN0M0B0ZXN0LmNvbSIsInVzZXJJZCI6IjViZDY5NDQxNWY2ZWVhMjUwNDEwZjk0MCIsImlhdCI6MTU0MDc5MTU4NywiZXhwIjoxNTQwNzk1MTg3fQ.pbEg1ka2Sw31gXJiRehC1NaJfmyOjt5PDLN3_HkgvkY
+router.post('/', checkAuth,upload.single('productImage'), (req, res, next) => {
     console.log(req.file)
     const product = new Product({
         _id: new mongoose.Types.ObjectId(),
@@ -133,7 +135,7 @@ router.get('/:productId', (req, res, next) => {
         });
 })
 
-router.put('/:productId', (req, res, next) => {
+router.put('/:productId',checkAuth, (req, res, next) => {
     const id = req.params.productId;
     const updateOps = {};
     //Este ciclo nos ayuda para checar que campos se cambiaron y si no se modificaron campos se queda con los actuales
@@ -164,7 +166,7 @@ router.put('/:productId', (req, res, next) => {
         });
 })
 
-router.delete('/:productId', (req, res, next) => {
+router.delete('/:productId',checkAuth, (req, res, next) => {
     const id = req.params.productId;
     Product.remove({
         _id: id
