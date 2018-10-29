@@ -11,3 +11,4 @@
 * `npm install --save morgan`
 * `npm install --save body-parser`
 * `npm install --save mongoose`
+* `npm install --save multer` //alternativa a body parser

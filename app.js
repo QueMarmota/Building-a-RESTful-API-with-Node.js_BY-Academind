@@ -15,7 +15,11 @@ mongoose.connect("mongodb://node-shop:"+
     ,{ useNewUrlParser: true }
     
 );
-mongoose.Promise = global.Promise;
+mongoose.Promise = global.Promise;//para que no de error de deprecated por trabajar con promesas
+//este midleware es para hacer la carpeta uploads publica para hacer que cualquiera pueda entrar a nuestros recursos
+//el '/uploads antes es para que la direccion url entre por medio de esa ruta'
+//direccion para entrar al recurso (imagen es este caso)http://localhost:3000/uploads/diagramabdsirahd.png
+app.use('/uploads',express.static('uploads'));
 //morgan 
 app.use(morgan('dev'));
 //BODY PARSER
