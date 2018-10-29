@@ -3,9 +3,11 @@ const app = express();
 const morgan = require('morgan');//morgan nos regresa el resultado y tiempo de las peticiones
 const bodyParser = require('body-parser');//body parser se utiliza para cuando hacemos post con json para traer los datos con req.body
 const mongoose = require('mongoose');
+//rutas que nos llevan a nuestros recursos
+const productRoutes = require('./api/routes/products');
+const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/users');
 
-const productRoutes = require('./api/routes/products')//rutas que nos llevan a nuestros recursos
-const orderRoutes = require('./api/routes/orders')
 //mongoose
 //la cadena de conexion se obtiene de la paginad e mongo despues de haber creado un cluster con atlas y MONGO_ATLAS_PW es la contraseña que definimos para el usuario del cluster
 //y esa pw se encuentra en nodemon.json para no tener que ponerla en la cadena de conexion(la contraseña no debe tener caracteres especiales).
@@ -42,6 +44,7 @@ app.use((req,res,next)=>{
 //rutas que deben manejar una peticion
 app.use('/products',productRoutes);
 app.use('/orders',orderRoutes);
+app.use('/users',userRoutes);
 
 
 app.use((req,res,next)=>{
